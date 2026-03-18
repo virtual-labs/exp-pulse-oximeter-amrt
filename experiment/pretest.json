@@ -3,17 +3,18 @@
   "version": 2.0,
   "questions": [
     {
-          "question": "1.	Pulse oximeter primarily measures",
+          "question": "1. Pulse oximeter primarily measures:",
       "answers": {
-        "a": "Nucleus",
-        "b": "Cell membrane",
-        "c": "Ribosome",
-        "d": "Golgi apparatus"
+        "a": "Blood pressure",
+        "b": "Oxygen saturation",
+        "c": "Body temperature",
+        "d": "Carbon dioxide concentration"
       },
  
       "correctAnswer": "b",
       "difficulty": "beginner"
     },   
+
 
 
 
