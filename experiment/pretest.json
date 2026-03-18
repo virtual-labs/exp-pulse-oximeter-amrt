@@ -1,39 +1,76 @@
+
 {
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+          "question": "1. Pulse oximeter primarily measures:",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Blood pressure",
+        "b": "Oxygen saturation",
+        "c": "Body temperature",
+        "d": "Carbon dioxide concentration"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+ 
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },   
+
+
+
+    {
+      "question": "2. Which of the following can be measured by a pulse oximeter?",
+      "answers": {
+        "a": "Oxygen saturation",
+        "b": "Pulse rate",
+        "c": "Perfusion index",
+        "d": "All the above"
       },
-      "correctAnswer": "a",
+      
+      "correctAnswer": "d",
       "difficulty": "beginner"
     },
+
+
+
     {
-      "question": "This is a Sample Question 2?",
+      "question": "3. Which of the following closely relates to BPM?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Oxygen saturation",
+        "b": "Pulse rate",
+        "c": "Perfusion index",
+        "d": "Blood pressure"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+
+
+    {
+      "question": "4. The working principle of a pulse oximeter is",
+      "answers": {
+        "a": "Pascal's Law",
+        "b": "Ohm's Law",
+        "c": "Boyle's Law",
+        "d": "Beer Lambert Law"
       },
-      "correctAnswer": "c",
+      
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+
+
+    {
+      "question": "5. Pulse oximeter measurement is dependent on",
+      "answers": {
+        "a": "Light absorption",
+        "b": "Light emission",
+        "c": "Light reflection",
+        "d": "Electrical conduction"
+      },
+     
+      "correctAnswer": "a",
       "difficulty": "beginner"
     }
   ]
-}
+}	 
