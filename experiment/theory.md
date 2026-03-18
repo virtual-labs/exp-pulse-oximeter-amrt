@@ -43,7 +43,7 @@ When the light from a pulse oximeter passes through a vascular tissue such as a 
 </i>
 </p>
 
-That is, light penetrates the skin and reaches a sensor that can detect the changes in absorption of the two wavelengths of light. This change in light absorption due to a cardiac cycle will generate a pulsating waveform called a PPG waveform that represents blood volume in arteries. Oxygenated haemoglobin (HbO₂) and deoxygenated haemoglobin (HbR) absorb light differently at specific wavelengths, particularly in the red (~660 nm) and infrared (~940 nm) regions. The absorbance ratio at these wavelengths is calculated against direct measurements of arterial oxygen saturation levels (SaO2) to correlate the pulse oximeter reading with arterial oxygen saturation levels (SpO2)(Figure 2). 
+That is, light penetrates the skin and reaches a sensor that can detect the changes in absorption of the two wavelengths of light. This change in light absorption due to a cardiac cycle will generate a pulsating waveform called a PPG waveform that represents blood volume in arteries. Oxygenated haemoglobin (HbO₂) and deoxygenated haemoglobin (HbR) absorb light differently at specific wavelengths, particularly in the red (660 nm) and infrared (940 nm) regions. The absorbance ratio at these wavelengths is calculated against direct measurements of arterial oxygen saturation levels (SaO2) to correlate the pulse oximeter reading with arterial oxygen saturation levels (SpO2)(Figure 2). 
 
 
 <p align="center">
