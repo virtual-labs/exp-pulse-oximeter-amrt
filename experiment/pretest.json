@@ -17,29 +17,28 @@
 
 
 
-
     {
-      "question": "2. In simple diffusion, molecules move across the membrane",
+      "question": "2. Which of the following can be measured by a pulse oximeter?",
       "answers": {
-        "a": "With the help of ATP energy",
-        "b": "With carrier proteins only",
-        "c": "Directly through the lipid bilayer",
-        "d": "Through active transport pumps"
+        "a": "Oxygen saturation",
+        "b": "Pulse rate",
+        "c": "Perfusion index",
+        "d": "All the above"
       },
       
-      "correctAnswer": "c",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     },
 
 
 
     {
-      "question": "3. A solution that has the same solute concentration as the cell is called:",
+      "question": "3. Which of the following closely relates to BPM?",
       "answers": {
-        "a": "Hypertonic",
-        "b": "Isotonic",
-        "c": "Hypotonic",
-        "d": "Saturated"
+        "a": "Oxygen saturation",
+        "b": "Pulse rate",
+        "c": "Perfusion index",
+        "d": "Blood pressure"
       },
       
       "correctAnswer": "b",
@@ -47,31 +46,30 @@
     },
 
 
-
     {
-      "question": "4. Which molecules commonly move across membranes by diffusion?",
+      "question": "4. The working principle of a pulse oximeter is",
       "answers": {
-        "a": "Oxygen and carbon dioxide",
-        "b": "DNA molecules",
-        "c": "Large proteins",
-        "d": "Starch molecules"
+        "a": "Pascal's Law",
+        "b": "Ohm's Law",
+        "c": "Boyle's Law",
+        "d": "Beer Lambert Law"
       },
       
-      "correctAnswer": "a",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     },
 
 
     {
-      "question": "5. Diffusion is defined as the movement of molecules from:",
+      "question": "5. Pulse oximeter measurement is dependent on",
       "answers": {
-        "a": "Lower concentration to higher concentration",
-        "b": "Higher concentration to lower concentration",
-        "c": "Equal concentration to unequal concentration",
-        "d": "Inside the cell to outside the cell"
+        "a": "Light absorption",
+        "b": "Light emission",
+        "c": "Light reflection",
+        "d": "Electrical conduction"
       },
      
-      "correctAnswer": "b",
+      "correctAnswer": "a",
       "difficulty": "beginner"
     }
   ]
