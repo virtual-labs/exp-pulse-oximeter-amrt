@@ -11,3 +11,1366 @@
         <script src="./js/main.js"></script>
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Pulse Oximeter Virtual Lab — SpO2 & Pulse Rate Monitoring</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <div class="loader-content">
+            <div class="loader-spinner">
+                <svg viewBox="0 0 50 50" class="spinner-svg">
+                    <circle cx="25" cy="25" r="20" fill="none" stroke="#e0e7ef" stroke-width="4"></circle>
+                    <circle cx="25" cy="25" r="20" fill="none" stroke="#dc2626" stroke-width="4" stroke-dasharray="80" stroke-dashoffset="60" class="spinner-circle"></circle>
+                </svg>
+            </div>
+            <h1>Pulse Oximeter Virtual Laboratory</h1>
+            <p>Preparing your workstation...</p>
+            <div class="load-bar"><div class="load-fill" id="load-progress"></div></div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="app" class="hidden">
+        <div class="top-right-actions" aria-label="Lab quick actions">
+            <button
+                class="top-action-btn"
+                type="button"
+                data-action="toggle-glossary"
+                aria-controls="glossary-modal"
+                aria-expanded="false"
+            >
+                <i class="fas fa-book" aria-hidden="true"></i>
+                <span>Glossary</span>
+            </button>
+            <button
+                class="top-action-btn btn-reset-lab"
+                type="button"
+                data-action="reset-lab"
+                aria-label="Reset lab"
+            >
+                <i class="fas fa-rotate-left" aria-hidden="true"></i>
+                <span>Reset</span>
+            </button>
+        </div>
+
+        <!-- LEFT SIDEBAR NAVIGATION -->
+        <aside id="sidebar-nav">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="logo.png" alt="Lab Logo" class="logo-image">
+                </div>
+                <div class="lab-title">
+                    <i class="fas fa-lungs lab-icon"></i>
+                    <h2>Pulse Oximeter Lab</h2>
+                </div>
+                <p class="lab-subtitle">Biomedical Engineering</p>
+            </div>
+
+            <!-- Navigation Steps -->
+            <nav class="nav-steps-vertical" id="nav-steps">
+                <div class="nav-step active" data-step="0">
+                    <div class="step-indicator">
+                        <i class="fas fa-flask"></i>
+                        <span class="step-check"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-label">Start</span>
+                    </div>
+                </div>
+                
+                <div class="nav-step" data-step="1">
+                    <div class="step-indicator">
+                        <i class="fas fa-tools"></i>
+                        <span class="step-check"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-label">Equipment</span>
+                    </div>
+                </div>
+                
+                <div class="nav-step" data-step="2">
+                    <div class="step-indicator">
+                        <i class="fas fa-hand-paper"></i>
+                        <span class="step-check"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-label">Setup</span>
+                    </div>
+                </div>
+                
+                <div class="nav-step" data-step="3">
+                    <div class="step-indicator">
+                        <i class="fas fa-heartbeat"></i>
+                        <span class="step-check"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-label">Monitor</span>
+                    </div>
+                </div>
+                
+                <div class="nav-step" data-step="4">
+                    <div class="step-indicator">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="step-check"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-label">Analysis</span>
+                    </div>
+                </div>
+            </nav>
+
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main id="main-content">
+
+            <!-- STEP 0: START EXPERIMENT -->
+            <section class="lab-step active" id="step-0">
+                <div class="step-container">
+                    <div class="welcome-card">
+                        <div class="welcome-icon">
+                            <i class="fas fa-pulse"></i>
+                        </div>
+                        <h2>Pulse Oximetry Measurement</h2>
+                        <p class="welcome-subtitle">Virtual Laboratory Experiment</p>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-bullseye"></i>
+                                <h3>Objective</h3>
+                            </div>
+                            <p>Learn pulse oximetry fundamentals including SpO2 measurement, photoplethysmography principles, and clinical interpretation of oxygen saturation readings.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h3>Learning Outcomes</h3>
+                            </div>
+                            <ul>
+                                <li>Understand Beer-Lambert law applications</li>
+                                <li>Demonstrate proper sensor placement</li>
+                                <li>Interpret SpO2 and pulse rate measurements</li>
+                                <li>Recognize factors affecting measurement accuracy</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Lab Illustration -->
+                    <div class="lab-illustration">
+                        <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background -->
+                            <rect width="720" height="260" rx="16" fill="none"/>
+                            <!-- Finger -->
+                            <g transform="translate(60, 50)">
+                                <rect x="30" y="20" width="60" height="140" rx="30" fill="#fdbcb4"/>
+                                <rect x="30" y="80" width="60" height="80" rx="10" fill="#f9a89f"/>
+                                <!-- Nail -->
+                                <rect x="38" y="22" width="44" height="30" rx="14" fill="#fce7e4"/>
+                                <!-- Knuckle lines -->
+                                <line x1="34" y1="110" x2="86" y2="110" stroke="#f0887c" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.6"/>
+                                <line x1="34" y1="130" x2="86" y2="130" stroke="#f0887c" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.6"/>
+                            </g>
+                            <!-- Pulse Oximeter Clip -->
+                            <g transform="translate(40, 48)">
+                                <!-- Top jaw -->
+                                <rect x="14" y="4" width="100" height="48" rx="12" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+                                <!-- LEDs on top jaw -->
+                                <circle cx="52" cy="28" r="8" fill="#ef4444" opacity="0.9"/>
+                                <circle cx="52" cy="28" r="4" fill="#fca5a5"/>
+                                <text x="47" y="44" font-family="sans-serif" font-size="7" fill="#fca5a5">660nm</text>
+                                <circle cx="82" cy="28" r="8" fill="#7c3aed" opacity="0.9"/>
+                                <circle cx="82" cy="28" r="4" fill="#c4b5fd"/>
+                                <text x="77" y="44" font-family="sans-serif" font-size="7" fill="#c4b5fd">940nm</text>
+                                <!-- Bottom jaw -->
+                                <rect x="14" y="128" width="100" height="40" rx="12" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+                                <!-- Photodetector -->
+                                <circle cx="67" cy="148" r="14" fill="#064e3b"/>
+                                <circle cx="67" cy="148" r="9" fill="#0d9488"/>
+                                <circle cx="67" cy="148" r="5" fill="#0f172a"/>
+                                <!-- Cable -->
+                                <path d="M114,128 Q155,120 180,110" stroke="#6b7280" stroke-width="5" fill="none" stroke-linecap="round"/>
+                                <path d="M114,128 Q155,120 180,110" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                <!-- Light rays -->
+                                <line x1="52" y1="52" x2="52" y2="128" stroke="#fca5a5" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+                                <line x1="82" y1="52" x2="82" y2="128" stroke="#c4b5fd" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+                            </g>
+                            <!-- Monitor Device -->
+                            <g transform="translate(270, 30)">
+                                <rect x="0" y="0" width="180" height="120" rx="14" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+                                <rect x="10" y="10" width="160" height="80" rx="8" fill="#0f172a"/>
+                                <!-- SpO2 reading -->
+                                <text x="22" y="55" font-family="monospace" font-size="34" fill="#4ade80" font-weight="bold">98%</text>
+                                <text x="22" y="72" font-family="monospace" font-size="10" fill="#94a3b8">SpO₂</text>
+                                <line x1="105" y1="14" x2="105" y2="86" stroke="#1e40af" stroke-width="1" stroke-dasharray="3,2"/>
+                                <!-- Pulse reading -->
+                                <text x="112" y="55" font-family="monospace" font-size="28" fill="#f87171" font-weight="bold">72</text>
+                                <text x="112" y="72" font-family="monospace" font-size="10" fill="#94a3b8">bpm</text>
+                                <!-- Signal bars -->
+                                <rect x="112" y="76" width="4" height="4" fill="#3b82f6" rx="1"/>
+                                <rect x="119" y="73" width="4" height="7" fill="#3b82f6" rx="1"/>
+                                <rect x="126" y="70" width="4" height="10" fill="#3b82f6" rx="1"/>
+                                <rect x="133" y="67" width="4" height="13" fill="#3b82f6" rx="1"/>
+                                <!-- Power indicator -->
+                                <circle cx="160" cy="104" r="6" fill="#22c55e"/>
+                                <!-- Cable -->
+                                <path d="M0,60 Q-30,60 -55,108" stroke="#6b7280" stroke-width="5" fill="none" stroke-linecap="round"/>
+                                <path d="M0,60 Q-30,60 -55,108" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            </g>
+                            <!-- Waveform chart area -->
+                            <g transform="translate(490, 20)">
+                                <rect x="0" y="0" width="210" height="220" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+                                <text x="12" y="22" font-family="sans-serif" font-size="10" fill="#64748b" font-weight="600">Plethysmographic Waveform (PPG)</text>
+                                <line x1="12" y1="28" x2="198" y2="28" stroke="#e2e8f0" stroke-width="1"/>
+                                <!-- Grid lines -->
+                                <line x1="12" y1="80" x2="198" y2="80" stroke="#f1f5f9" stroke-width="1"/>
+                                <line x1="12" y1="130" x2="198" y2="130" stroke="#f1f5f9" stroke-width="1"/>
+                                <line x1="12" y1="180" x2="198" y2="180" stroke="#f1f5f9" stroke-width="1"/>
+                                <!-- SpO2 waveform (green) -->
+                                <polyline points="12,130 30,130 38,110 48,85 58,70 65,68 72,75 80,100 90,130 100,130 108,110 118,85 128,70 135,68 142,75 150,100 160,130 170,130 178,110 188,85 198,72" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                                <!-- Pulse waveform (red, subtler) -->
+                                <polyline points="12,160 30,160 40,150 52,135 62,128 70,130 80,148 92,162 104,162 114,150 126,135 136,128 144,130 154,148 166,162 178,162 188,150 198,137" stroke="#ef4444" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+                                <!-- Labels -->
+                                <circle cx="18" cy="197" r="4" fill="#22c55e"/>
+                                <text x="26" y="201" font-family="sans-serif" font-size="9" fill="#374151">SpO₂ signal</text>
+                                <circle cx="105" cy="197" r="4" fill="#ef4444"/>
+                                <text x="113" y="201" font-family="sans-serif" font-size="9" fill="#374151">Pulse signal</text>
+                            </g>
+                            <!-- Arrow from device to monitor -->
+                            <g>
+                                <line x1="230" y1="90" x2="265" y2="90" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+                                <polygon points="265,86 273,90 265,94" fill="#64748b"/>
+                            </g>
+                            <!-- Label -->
+                            <text x="360" y="252" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">Non-invasive SpO₂ &amp; Pulse Rate Monitoring via Photoplethysmography</text>
+                        </svg>
+                    </div>
+
+                    <!-- Science & Key Principles -->
+                    <div class="science-section-card">
+                        <div class="info-card-header" style="margin-bottom: 16px;">
+                            <i class="fas fa-flask"></i>
+                            <h3>Key Principles</h3>
+                        </div>
+                        <div class="science-grid">
+                            <div class="science-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <div>
+                                    <strong>Beer-Lambert Law</strong>
+                                    <p>The amount of light absorbed by a solution is proportional to the concentration of the absorbing substance and path length through it.</p>
+                                </div>
+                            </div>
+                            <div class="science-item">
+                                <i class="fas fa-wave-square"></i>
+                                <div>
+                                    <strong>Dual Wavelength Detection</strong>
+                                    <p>Red light (660 nm) and infrared light (940 nm) are used because oxyhaemoglobin and deoxyhaemoglobin absorb these wavelengths differently.</p>
+                                </div>
+                            </div>
+                            <div class="science-item">
+                                <i class="fas fa-heartbeat"></i>
+                                <div>
+                                    <strong>Photoplethysmography (PPG)</strong>
+                                    <p>Volume changes in blood vessels caused by each heartbeat modulate the transmitted light signal, enabling both SpO₂ and pulse rate measurement.</p>
+                                </div>
+                            </div>
+                            <div class="science-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <div>
+                                    <strong>Normal Ranges</strong>
+                                    <p>Healthy SpO₂: <strong>95–100%</strong>. Pulse rate: <strong>60–100 bpm</strong>. Perfusion index &gt; 1.0% indicates good circulation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary btn-lg next-step" id="start-lab-btn" type="button" data-next="1">
+                        <i class="fas fa-play"></i>
+                        <span>Begin Experiment</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- STEP 1: EQUIPMENT -->
+            <section class="lab-step" id="step-1">
+                <div class="step-container">
+                    <div class="section-header">
+                        <i class="fas fa-toolbox"></i>
+                        <div>
+                            <h2>Equipment Familiarization</h2>
+                            <p>Click on each piece of equipment to learn about it. Explore ALL items before proceeding.</p>
+                        </div>
+                    </div>
+                    <div class="content-grid equipment-layout-grid">
+                        <!-- Equipment Explorer Panel (LEFT) -->
+                        <div class="content-card equipment-explorer">
+                            <div class="card-header">
+                                <i class="fas fa-microscope"></i>
+                                <h3>Equipment Explorer</h3>
+                                <p>Click on an item to see details on the right</p>
+                            </div>
+                            <div class="equipment-list">
+                                <div class="equipment-item" data-equipment="oximeter-device">
+                                    <div class="equipment-icon">
+                                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                          <rect x="6" y="4" width="36" height="40" rx="10" fill="#1e3a8a"/>
+                                          <rect x="10" y="14" width="28" height="18" rx="3" fill="#0f172a"/>
+                                          <text x="12" y="26" font-family="monospace" font-size="8" fill="#4ade80" font-weight="bold">98%</text>
+                                          <text x="12" y="30" font-family="monospace" font-size="5" fill="#64748b">SpO₂</text>
+                                          <circle cx="38" cy="10" r="4" fill="#22c55e"/>
+                                        </svg>
+                                    </div>
+                                    <div class="equipment-details">
+                                        <h4>Pulse Oximeter Device</h4>
+                                        <p>Main monitoring unit with display and processing</p>
+                                    </div>
+                                    <div class="equipment-status">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+
+                                <div class="equipment-item" data-equipment="sensor-probe">
+                                    <div class="equipment-icon">
+                                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M8 18 Q24 14 40 18 L40 26 Q24 30 8 26 Z" fill="#93c5fd"/>
+                                          <path d="M8 28 Q24 24 40 28 L40 40 Q24 44 8 40 Z" fill="#3b82f6"/>
+                                          <rect x="21" y="24" width="6" height="6" fill="#1d4ed8" rx="1"/>
+                                          <circle cx="18" cy="20" r="3" fill="#ef4444"/>
+                                          <circle cx="30" cy="20" r="3" fill="#7c3aed"/>
+                                          <path d="M24 40 Q16 46 6 44" stroke="#6b7280" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="equipment-details">
+                                        <h4>Sensor Probe</h4>
+                                        <p>Finger clip sensor with LED and photodetector</p>
+                                    </div>
+                                    <div class="equipment-status">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+
+                                <div class="equipment-item" data-equipment="led-system">
+                                    <div class="equipment-icon">
+                                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                          <circle cx="14" cy="22" r="8" fill="#ef4444"/>
+                                          <rect x="11" y="30" width="6" height="8" fill="#9ca3af"/>
+                                          <circle cx="34" cy="22" r="8" fill="#7c3aed"/>
+                                          <rect x="31" y="30" width="6" height="8" fill="#9ca3af"/>
+                                          <line x1="18" y1="18" x2="24" y2="12" stroke="#fca5a5" stroke-width="1" opacity="0.8"/>
+                                          <line x1="19" y1="22" x2="26" y2="22" stroke="#fca5a5" stroke-width="1" opacity="0.8"/>
+                                          <text x="8" y="46" font-family="sans-serif" font-size="5" fill="#ef4444">R</text>
+                                          <text x="28" y="46" font-family="sans-serif" font-size="5" fill="#7c3aed">IR</text>
+                                        </svg>
+                                    </div>
+                                    <div class="equipment-details">
+                                        <h4>LED Light Sources</h4>
+                                        <p>Red (660nm) and infrared (940nm) LEDs</p>
+                                    </div>
+                                    <div class="equipment-status">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+
+                                <div class="equipment-item" data-equipment="photodetector">
+                                    <div class="equipment-icon">
+                                        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                          <rect x="4" y="4" width="40" height="40" rx="5" fill="#064e3b"/>
+                                          <rect x="12" y="12" width="24" height="24" rx="3" fill="#1a1a2e"/>
+                                          <circle cx="24" cy="24" r="9" fill="#0d9488" opacity="0.9"/>
+                                          <circle cx="24" cy="24" r="6" fill="#0f172a"/>
+                                          <circle cx="24" cy="24" r="3" fill="#1d4ed8"/>
+                                          <rect x="14" y="4" width="2.5" height="6" fill="#d4a017" rx="0.5"/>
+                                          <rect x="22" y="4" width="2.5" height="6" fill="#d4a017" rx="0.5"/>
+                                          <rect x="30" y="4" width="2.5" height="6" fill="#d4a017" rx="0.5"/>
+                                        </svg>
+                                    </div>
+                                    <div class="equipment-details">
+                                        <h4>Photodetector</h4>
+                                        <p>Measures transmitted light intensity</p>
+                                    </div>
+                                    <div class="equipment-status">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Equipment Detail Panel (RIGHT) — populated by JS on click -->
+                        <div class="content-card equipment-detail-panel">
+                            <div class="card-header">
+                                <i class="fas fa-info-circle"></i>
+                                <h3>Component Details</h3>
+                            </div>
+                            <div class="equipment-info" id="equipment-info">
+                                <div class="info-placeholder">
+                                    <i class="fas fa-hand-pointer"></i>
+                                    <p>Select an equipment item on the left to view its detailed information and illustration here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theory Panel (full width) -->
+                    <div class="content-card theory-panel">
+                        <div class="card-header">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Pulse Oximetry Principles</h3>
+                        </div>
+                        <div class="theory-content">
+                            <h4>Beer-Lambert Law</h4>
+                            <p>Pulse oximetry relies on the differential absorption of red and infrared light by oxygenated and deoxygenated hemoglobin.</p>
+                            
+                            <div class="theory-formula">
+                                <div class="formula-box">
+                                    <span class="formula">SpO2 = f(R)</span>
+                                    <span class="formula-desc">where R = (AC<sub>red</sub>/DC<sub>red</sub>) / (AC<sub>IR</sub>/DC<sub>IR</sub>)</span>
+                                </div>
+                            </div>
+
+                            <h4>Key Concepts</h4>
+                            <ul class="concept-list">
+                                <li><strong>SpO2:</strong> Peripheral oxygen saturation (95-100% normal)</li>
+                                <li><strong>Pulse Rate:</strong> Heart rate derived from pulsatile signal</li>
+                                <li><strong>Perfusion Index:</strong> Strength of peripheral circulation</li>
+                                <li><strong>Plethysmograph:</strong> Waveform showing pulsatile flow</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="step-actions">
+                        <button class="btn btn-primary next-step" data-next="2" id="equipment-continue-btn" disabled>
+                            <span>Continue to Setup</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 2: Device Setup -->
+            <section class="lab-step" id="step-2">
+                <div class="step-container">
+                    <div class="section-header">
+                        <i class="fas fa-hand-paper"></i>
+                        <div>
+                            <h2>Device Setup & Sensor Attachment</h2>
+                            <p>Clean the sensor, then attach it with correct alignment for reliable readings</p>
+                        </div>
+                    </div>
+
+                    <div class="content-grid setup-grid">
+                <!-- Setup Animation Panel -->
+                <div class="content-card setup-animation-card">
+                <div class="card-header">
+                    <i class="fas fa-hand-paper"></i>
+                    <h3>Guided Setup Assistant</h3>
+                    <p>Let's get started! Follow one action at a time.</p>
+
+                    <div class="placement-tips">
+                    <div class="tip-item">
+                        <i class="fas fa-hand-sparkles"></i>
+                        <span><strong>Swipe to clean sensor</strong></span>
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-crosshairs"></i>
+                        <span><strong>Drag clip to fingertip</strong></span>
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span><strong>Hold for signal verify</strong></span>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="setup-animation-container">
+                    <div class="setup-stepper" id="setup-stepper" aria-label="Setup stepper">
+                        <div class="setup-step-chip active" data-guide-step="clean">
+                            <span class="step-dot">1</span>
+                            <span class="chip-text"><i class="fas fa-hand-sparkles"></i> Clean</span>
+                            <span class="chip-check"><i class="fas fa-check"></i></span>
+                            <i class="fas fa-circle-info" title="Swipe cloth on highlighted zone"></i>
+                        </div>
+                        <div class="setup-step-chip" data-guide-step="attach">
+                            <span class="step-dot">2</span>
+                            <span class="chip-text"><i class="fas fa-hand-paper"></i> Attach</span>
+                            <span class="chip-check"><i class="fas fa-check"></i></span>
+                            <i class="fas fa-circle-info" title="Drag clip until score turns green"></i>
+                        </div>
+                        <div class="setup-step-chip" data-guide-step="verify">
+                            <span class="step-dot">3</span>
+                            <span class="chip-text"><i class="fas fa-check-double"></i> Verify</span>
+                            <span class="chip-check"><i class="fas fa-check"></i></span>
+                            <i class="fas fa-circle-info" title="Wait for good signal confirmation"></i>
+                        </div>
+                    </div>
+
+                    <div class="setup-guidance-banner" id="setup-guidance-banner">
+                        <div class="guidance-icon"><i class="fas fa-location-arrow"></i></div>
+                        <div class="guidance-text-wrap">
+                            <p id="setup-action-text">Step 1: Swipe to clean sensor.</p>
+                            <small id="setup-encouragement">You are doing great!</small>
+                        </div>
+                    </div>
+
+                    <!-- Stage: finger and draggable oximeter -->
+                    <div class="setup-stage">
+                    <div class="oximeter-container">
+                    <p class="stage-label"><i class="fas fa-people-carry-box"></i> Oximeter Clip (Left Side)</p>
+                    <div class="pulse-oximeter" id="draggable-oximeter">
+                        <div class="oximeter-top">
+                        <div class="display-screen">
+                            <span class="display-text">--</span>
+                        </div>
+                        <div class="status-led"></div>
+                        </div>
+
+                        <div class="oximeter-clip">
+                        <div class="clip-top"></div>
+                        <div class="clip-bottom">
+                            <div class="led-indicator red-led"></div>
+                            <div class="led-indicator ir-led"></div>
+                            <div class="photodetector"></div>
+                        </div>
+
+                        <!-- Cleaning target zone covers the whole clip -->
+                        <div class="cleaning-zone" id="cleaning-zone" title="Wipe here to clean sensor">
+                            <div class="cleaning-overlay">
+                            <i class="fas fa-hand-sparkles"></i>
+                            <span>Wipe</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="cleaning-cloth" id="cleaning-cloth" title="Use cloth to wipe the oximeter sensor zone">
+                        <i class="fas fa-square"></i>
+                        <span>Cleaning Cloth</span>
+                    </div>
+                    <div class="wipe-direction-hint" id="wipe-direction-hint" aria-hidden="true">
+                        <i class="fas fa-arrows-left-right"></i>
+                        <span>Swipe left and right</span>
+                    </div>
+                    <p class="stage-hint">Step 1: Hold and move the cloth into the highlighted zone to wipe.</p>
+                    </div>
+
+                    <div class="finger-container">
+                    <p class="stage-label"><i class="fas fa-hand-point-up"></i> Target Finger (Right Side)</p>
+                    <div class="hand-illustration">
+                        <div class="finger" id="target-finger">
+                        <div class="fingertip"></div>
+                        <div class="finger-joint"></div>
+                        </div>
+                        <div class="hand-palm"></div>
+                    </div>
+                    <div class="ghost-placement" id="ghost-placement" aria-hidden="true">
+                        <i class="fas fa-location-crosshairs"></i>
+                        <span>Place clip here</span>
+                    </div>
+                    </div>
+                    </div>
+
+                    <!-- Progress meters row -->
+                    <div class="clean-progress">
+                        <div class="clean-progress-row">
+                        <span class="clean-label"><i class="fas fa-spray-can"></i> Cleaning Progress</span>
+                        <span class="clean-value" id="clean-progress-text">0%</span>
+                        </div>
+                        <div class="clean-progress-bar">
+                        <div class="clean-progress-fill" id="clean-progress-fill"></div>
+                        </div>
+                        <small class="clean-hint">Use the cloth to wipe over the highlighted sensor zone until 100%.</small>
+                    </div>
+
+                    <div class="alignment-panel">
+                        <div class="alignment-row">
+                        <span class="alignment-label"><i class="fas fa-crosshairs"></i> Alignment Score</span>
+                        <span class="alignment-value" id="alignment-score">0%</span>
+                        </div>
+                        <div class="alignment-meter">
+                        <div class="alignment-meter-fill" id="alignment-meter-fill"></div>
+                        </div>
+                        <small class="alignment-feedback" id="alignment-feedback"><i class="fas fa-circle"></i> Start dragging to check alignment</small>
+                        <small class="alignment-hint">After cleaning, drag the device to the fingertip. Aim for ≥ 60% to attach.</small>
+                    </div>
+
+                    <div class="setup-metrics-panel" aria-live="polite">
+                        <div class="setup-overall-progress">
+                            <div class="overall-row">
+                                <span><i class="fas fa-trophy"></i> Setup Progress</span>
+                                <span id="setup-overall-text">0 / 3 complete</span>
+                            </div>
+                            <div class="overall-bar">
+                                <div class="overall-fill" id="setup-overall-fill"></div>
+                                <span class="milestone m1" id="milestone-clean">1</span>
+                                <span class="milestone m2" id="milestone-attach">2</span>
+                                <span class="milestone m3" id="milestone-verify">3</span>
+                            </div>
+                        </div>
+                        <p class="setup-live-message" id="setup-live-message">Ready when you are.</p>
+                        <div class="setup-success-badge" id="setup-success-badge">
+                            <i class="fas fa-medal"></i>
+                            <span>Perfect placement! Setup Star</span>
+                        </div>
+                    </div>
+
+                    <!-- Instruction guide -->
+                    <div class="attachment-guide" id="attachment-guide">
+                    <div class="guide-arrow animated-pulse">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <p><strong>Step 1:</strong> Clean the sensor in the marked zone first.</p>
+                    <div class="guide-hint">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>Then drag the device to the fingertip</span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Setup Instructions Panel -->
+                <div class="content-card instructions-panel">
+                <div class="card-header">
+                    <i class="fas fa-list-check"></i>
+                    <h3>Step-by-Step Setup Process</h3>
+                    <p>Complete each step to unlock monitoring</p>
+                </div>
+
+                <div class="instructions-content">
+                    <div class="instruction-step completed" data-step="power">
+                    <div class="step-icon">
+                        <i class="fas fa-power-off"></i>
+                    </div>
+                    <div class="step-text">
+                        <h4>1. Power On Device</h4>
+                        <p>Turn on the pulse oximeter and wait for the display to show "--" (ready state)</p>
+                        <small><strong>Why:</strong> Device initializes LEDs, detector, and display.</small>
+                    </div>
+                    <div class="step-status completed">
+                        <i class="fas fa-check"></i><span>Completed</span>
+                    </div>
+                    </div>
+
+                    <div class="instruction-step" data-step="clean" id="clean-step">
+                    <div class="step-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <div class="step-text">
+                        <h4>2. Clean Sensor Surface</h4>
+                        <p>Swipe the highlighted zone until the bar reaches 100%.</p>
+                        <small><strong>Why:</strong> Prevents contamination and improves contact/accuracy.</small>
+                    </div>
+                    <div class="step-status">
+                        <span class="pending"><i class="fas fa-hand-sparkles"></i> Wipe the sensor zone</span>
+                    </div>
+                    </div>
+
+                    <div class="instruction-step current" data-step="attach">
+                    <div class="step-icon">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <div class="step-text">
+                        <h4>3. Attach Sensor to Finger</h4>
+                        <p>Drag clip to fingertip. Green score (≥ 60%) means perfect fit.</p>
+                        <small><strong>Tip:</strong> Center the LEDs and detector across the finger.</small>
+                    </div>
+                    <div class="step-status pending">
+                        <i class="fas fa-clock"></i>
+                        <span>Waiting for attachment</span>
+                    </div>
+                    </div>
+
+                    <div class="instruction-step" data-step="verify">
+                    <div class="step-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <div class="step-text">
+                        <h4>4. Verify Signal Quality</h4>
+                        <p>Hold position and wait for “Good Signal”.</p>
+                        <small><strong>Success:</strong> Stable SpO2 and pulse rate appear.</small>
+                    </div>
+                    <div class="step-status pending">
+                        <i class="fas fa-clock"></i>
+                        <span>Complete step 3 first</span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Device Status Panel (unchanged) -->
+                <div class="content-card device-status-panel">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Real-Time Device Status</h3>
+                    <p>Monitor connection and signal quality</p>
+                </div>
+                <div class="device-status-content">
+                    <div class="status-indicator" id="connection-status">
+                    <div class="status-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div class="status-info">
+                        <h4>Connection</h4>
+                        <span class="status-text">Disconnected</span>
+                    </div>
+                    </div>
+
+                    <div class="status-indicator" id="sensor-status">
+                    <div class="status-icon">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <div class="status-info">
+                        <h4>Sensor</h4>
+                        <span class="status-text">Not Attached</span>
+                    </div>
+                    </div>
+
+                    <div class="status-indicator" id="signal-status">
+                    <div class="status-icon">
+                        <i class="fas fa-signal"></i>
+                    </div>
+                    <div class="status-info">
+                        <h4>Signal Quality</h4>
+                        <span class="status-text">No Signal</span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="step-actions">
+                <button class="btn btn-secondary prev-step" data-prev="1">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Equipment</span>
+                </button>
+                <button class="btn btn-primary next-step" data-next="3" id="setup-continue-btn" disabled>
+                <span>Start Monitoring</span>
+                <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+                </div>
+            </section>
+
+            <!-- STEP 3: Patient Monitoring -->
+                <section class="lab-step" id="step-3">
+                <div class="step-container">
+                    <div class="step-header">
+                        <div class="step-badge">Step 3</div>
+                        <h2>Patient Monitoring</h2>
+                        <p>Record SpO2, pulse rate, and observe the photoplethysmographic waveform</p>
+                    </div>
+
+                    <div class="content-grid monitoring-grid">
+                        <!-- Main Display Panel -->
+                        <div class="content-card main-display-panel">
+                            <div class="card-header">
+                                <i class="fas fa-tv"></i>
+                                <h3>Pulse Oximeter Display</h3>
+                                <div class="monitoring-controls">
+                                    <button class="monitoring-btn" id="start-monitoring-btn">
+                                        <i class="fas fa-play"></i>
+                                        Start Monitoring
+                                    </button>
+                                    <button class="monitoring-btn" id="pause-monitoring-btn" style="display: none;">
+                                        <i class="fas fa-pause"></i>
+                                        Pause
+                                    </button>
+                                    <button class="monitoring-btn monitoring-btn-rest" id="rest-monitoring-btn" style="display: none;">
+                                        <i class="fas fa-bed"></i>
+                                        Rest
+                                    </button>
+                                    <button class="monitoring-btn" id="stop-monitoring-btn" style="display: none;">
+                                        <i class="fas fa-stop"></i>
+                                        Stop
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="oximeter-display">
+                                <div class="display-main">
+                                    <div class="spo2-display">
+                                        <div class="display-label">SpO2</div>
+                                        <div class="display-value" id="spo2-value">--</div>
+                                        <div class="display-unit">%</div>
+                                    </div>
+                                    <div class="pulse-display">
+                                        <div class="display-label">
+                                            Pulse
+                                            <i class="fas fa-heartbeat pulse-icon" id="pulse-icon"></i>
+                                        </div>
+                                        <div class="display-value" id="pulse-value">--</div>
+                                        <div class="display-unit">bpm</div>
+                                    </div>
+                                </div>
+                                <div class="display-secondary">
+                                    <div class="perfusion-index">
+                                        <span class="label">PI:</span>
+                                        <span class="value" id="pi-value">-.-</span>
+                                        <span class="unit">%</span>
+                                    </div>
+                                    <div class="signal-strength">
+                                        <span class="label">Signal:</span>
+                                        <div class="signal-bars" id="signal-bars">
+                                            <div class="bar"></div>
+                                            <div class="bar"></div>
+                                            <div class="bar"></div>
+                                            <div class="bar"></div>
+                                            <div class="bar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Waveform Panel -->
+                        <div class="content-card waveform-panel">
+                            <div class="card-header">
+                                <i class="fas fa-wave-square"></i>
+                                <h3>Plethysmographic Waveform</h3>
+                                <div class="waveform-controls">
+                                    <label class="control-label">
+                                        Speed:
+                                        <select id="waveform-speed">
+                                            <option value="1">1x</option>
+                                            <option value="2" selected>2x</option>
+                                            <option value="3">3x</option>
+                                        </select>
+                                    </label>
+                                    <label class="control-label">
+                                        Scale:
+                                        <select id="waveform-scale">
+                                            <option value="1">1x</option>
+                                            <option value="2" selected>2x</option>
+                                            <option value="3">3x</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="waveform-container">
+                                <canvas id="waveform-canvas" width="800" height="200"></canvas>
+                                <div class="waveform-grid" id="waveform-grid"></div>
+                            </div>
+                        </div>
+
+                        <!-- Patient Condition Selector -->
+                        <div class="content-card condition-panel">
+                            <div class="card-header">
+                                <i class="fas fa-user-md"></i>
+                                <h3>Patient Condition</h3>
+                            </div>
+                            <div class="condition-selector">
+                                <div class="condition-option active" data-condition="healthy">
+                                    <div class="condition-icon">
+                                        <i class="fas fa-smile"></i>
+                                    </div>
+                                    <div class="condition-info">
+                                        <h4>Healthy Adult</h4>
+                                        <p>Normal SpO2: 98-100%</p>
+                                        <p>Pulse: 60-100 bpm</p>
+                                    </div>
+                                </div>
+
+                                <div class="condition-option" data-condition="mild-hypoxia">
+                                    <div class="condition-icon">
+                                        <i class="fas fa-meh"></i>
+                                    </div>
+                                    <div class="condition-info">
+                                        <h4>Mild Hypoxia</h4>
+                                        <p>SpO2: 90-95%</p>
+                                        <p>Slightly elevated pulse</p>
+                                    </div>
+                                </div>
+
+                                <div class="condition-option" data-condition="moderate-hypoxia">
+                                    <div class="condition-icon">
+                                        <i class="fas fa-frown"></i>
+                                    </div>
+                                    <div class="condition-info">
+                                        <h4>Moderate Hypoxia</h4>
+                                        <p>SpO2: 85-90%</p>
+                                        <p>Compensatory tachycardia</p>
+                                    </div>
+                                </div>
+
+                                <div class="condition-option" data-condition="poor-circulation">
+                                    <div class="condition-icon">
+                                        <i class="fas fa-snowflake"></i>
+                                    </div>
+                                    <div class="condition-info">
+                                        <h4>Poor Circulation</h4>
+                                        <p>Low perfusion index</p>
+                                        <p>Weak signal quality</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Measurement Log -->
+                        <div class="content-card measurement-log">
+                            <div class="card-header">
+                                <i class="fas fa-clipboard-list"></i>
+                                <h3>Measurement Log</h3>
+                                <button class="log-btn" id="record-measurement-btn">
+                                    <i class="fas fa-plus"></i>
+                                    Record
+                                </button>
+                            </div>
+                            <div class="log-content">
+                                <div class="log-header">
+                                    <span>Time</span>
+                                    <span>SpO2</span>
+                                    <span>Pulse</span>
+                                    <span>PI</span>
+                                    <span>Condition</span>
+                                </div>
+                                <div class="log-entries" id="measurement-log-entries">
+                                    <!-- Entries will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary prev-step" data-prev="2">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back to Setup</span>
+                        </button>
+                        <button class="btn btn-primary next-step" data-next="4" id="monitoring-continue-btn" disabled>
+                            <span>Analyze Results</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- STEP 4: Analysis & Results -->
+                <section class="lab-step" id="step-4">
+                <div class="step-container">
+                    <div class="step-header">
+                        <div class="step-badge">Step 4</div>
+                        <h2>Analysis & Results</h2>
+                        <p>Interpret the measurements and understand clinical significance</p>
+                    </div>
+
+                    <div class="content-grid analysis-grid">
+                        <!-- Results Summary -->
+                        <div class="content-card results-summary">
+                            <div class="card-header">
+                                <i class="fas fa-chart-line"></i>
+                                <h3>Measurement Summary</h3>
+                            </div>
+                            <div class="summary-content">
+                                <div class="summary-stats">
+                                    <div class="stat-box">
+                                        <div class="stat-label">Average SpO2</div>
+                                        <div class="stat-value" id="avg-spo2">--</div>
+                                        <div class="stat-unit">%</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Average Pulse</div>
+                                        <div class="stat-value" id="avg-pulse">--</div>
+                                        <div class="stat-unit">bpm</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Average PI</div>
+                                        <div class="stat-value" id="avg-pi">--</div>
+                                        <div class="stat-unit">%</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Measurements</div>
+                                        <div class="stat-value" id="total-measurements">0</div>
+                                        <div class="stat-unit">total</div>
+                                    </div>
+                                </div>
+                                <div class="summary-chart">
+                                    <canvas id="summary-chart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Clinical Interpretation -->
+                        <div class="content-card interpretation-panel">
+                            <div class="card-header">
+                                <i class="fas fa-stethoscope"></i>
+                                <h3>Clinical Interpretation</h3>
+                            </div>
+                            <div class="interpretation-content">
+                                <div class="interpretation-section">
+                                    <h4>SpO2 Assessment</h4>
+                                    <div class="assessment-result" id="spo2-assessment">
+                                        <div class="assessment-icon">
+                                            <i class="fas fa-question-circle"></i>
+                                        </div>
+                                        <div class="assessment-text">
+                                            <p>Record measurements to see assessment</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="interpretation-section">
+                                    <h4>Pulse Rate Assessment</h4>
+                                    <div class="assessment-result" id="pulse-assessment">
+                                        <div class="assessment-icon">
+                                            <i class="fas fa-question-circle"></i>
+                                        </div>
+                                        <div class="assessment-text">
+                                            <p>Record measurements to see assessment</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="interpretation-section">
+                                    <h4>Perfusion Assessment</h4>
+                                    <div class="assessment-result" id="perfusion-assessment">
+                                        <div class="assessment-icon">
+                                            <i class="fas fa-question-circle"></i>
+                                        </div>
+                                        <div class="assessment-text">
+                                            <p>Record measurements to see assessment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reference Values -->
+                        <div class="content-card reference-panel">
+                            <div class="card-header">
+                                <i class="fas fa-book-medical"></i>
+                                <h3>Reference Values</h3>
+                            </div>
+                            <div class="reference-content">
+                                <div class="reference-table">
+                                    <div class="table-header">
+                                        <span>Parameter</span>
+                                        <span>Normal Range</span>
+                                        <span>Critical Values</span>
+                                    </div>
+                                    <div class="table-row">
+                                        <span class="param-name">SpO2</span>
+                                        <span class="normal-range">95-100%</span>
+                                        <span class="critical-value">&lt; 90%</span>
+                                    </div>
+                                    <div class="table-row">
+                                        <span class="param-name">Pulse Rate</span>
+                                        <span class="normal-range">60-100 bpm</span>
+                                        <span class="critical-value">&lt; 50 or &gt; 150</span>
+                                    </div>
+                                    <div class="table-row">
+                                        <span class="param-name">Perfusion Index</span>
+                                        <span class="normal-range">&gt; 1.0%</span>
+                                        <span class="critical-value">&lt; 0.5%</span>
+                                    </div>
+                                </div>
+
+                                <div class="clinical-notes">
+                                    <h4>Clinical Notes</h4>
+                                    <ul>
+                                        <li>SpO2 &lt; 90% indicates significant hypoxemia</li>
+                                        <li>Motion artifacts can cause false readings</li>
+                                        <li>Poor perfusion affects accuracy</li>
+                                        <li>Nail polish may interfere with measurements</li>
+                                        <li>Carbon monoxide poisoning shows false normal readings</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lab Report -->
+                        <div class="content-card lab-report">
+                            <div class="card-header">
+                                <i class="fas fa-file-medical-alt"></i>
+                                <h3>Lab Report</h3>
+                                <button class="report-btn" id="generate-report-btn">
+                                    <i class="fas fa-download"></i>
+                                    Generate Report
+                                </button>
+                            </div>
+                            <div class="report-content">
+                                <div class="report-section">
+                                    <h4>Experiment Summary</h4>
+                                    <p>This pulse oximetry lab demonstrated the principles of non-invasive oxygen saturation monitoring using photoplethysmography.</p>
+                                </div>
+                                
+                                <div class="report-section">
+                                    <h4>Key Learning Objectives</h4>
+                                    <ul class="objectives-list" id="completed-objectives">
+                                        <!-- Will be populated by JavaScript -->
+                                    </ul>
+                                </div>
+
+                                <div class="report-section">
+                                    <h4>Performance Metrics</h4>
+                                    <div class="metrics-grid">
+                                        <div class="metric">
+                                            <span class="metric-label">Equipment Explored</span>
+                                            <span class="metric-value" id="equipment-explored">0/4</span>
+                                        </div>
+                                        <div class="metric">
+                                            <span class="metric-label">Setup Completed</span>
+                                            <span class="metric-value" id="setup-completed">0/4</span>
+                                        </div>
+                                        <div class="metric">
+                                            <span class="metric-label">Measurements Taken</span>
+                                            <span class="metric-value" id="measurements-taken">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary prev-step" data-prev="3">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back to Monitoring</span>
+                        </button>
+                        <button class="btn btn-success" id="complete-lab-btn">
+                            <i class="fas fa-check"></i>
+                            <span>Complete Lab</span>
+                        </button>
+                    </div>
+                </div>
+                </section>
+        </main>
+    </div>
+
+    <!-- GLOSSARY DRAWER -->
+    <div id="glossary-modal" class="modal glossary-drawer-modal hidden" aria-hidden="true">
+        <div class="modal-content glossary-drawer-content" role="dialog" aria-modal="true" aria-labelledby="glossary-title">
+            <div class="modal-header">
+                <h3 id="glossary-title"><i class="fas fa-book-medical"></i> Pulse Oximeter Glossary</h3>
+                <button class="modal-close" id="close-glossary-modal" aria-label="Close glossary">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body glossary-body">
+                <div class="glossary-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input id="glossary-search" type="text" placeholder="Search terms..." autocomplete="off">
+                </div>
+
+                <div class="glossary-list" id="glossary-list">
+                    <article class="glossary-item" data-term="Pulse Oximeter">
+                        <h4>Pulse Oximeter</h4>
+                        <p>A non-invasive device that estimates blood oxygen saturation (SpO2) and pulse rate using light absorption through tissue.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="SpO2 Oxygen Saturation">
+                        <h4>SpO2 (Oxygen Saturation)</h4>
+                        <p>The percentage of hemoglobin carrying oxygen in arterial blood. Normal healthy readings are typically around 95-100%.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Sensor Alignment">
+                        <h4>Sensor Alignment</h4>
+                        <p>How accurately the clip sensor is positioned on the fingertip. Better alignment improves signal quality and measurement reliability.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Infrared Light">
+                        <h4>Infrared Light (940 nm)</h4>
+                        <p>One of the two wavelengths used in pulse oximetry. Oxygenated hemoglobin absorbs infrared light differently than deoxygenated hemoglobin.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Red Light Beer Lambert">
+                        <h4>Red Light (660 nm)</h4>
+                        <p>Used with infrared light to estimate oxygen saturation through differential absorption based on the Beer-Lambert principle.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Signal Verification">
+                        <h4>Signal Verification</h4>
+                        <p>The step where the app confirms proper sensor placement and stable pulsatile waveform before monitoring starts.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Perfusion Index PI">
+                        <h4>Perfusion Index (PI)</h4>
+                        <p>A relative indicator of pulse strength at the sensor site. Low perfusion can reduce signal confidence.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Photoplethysmography PPG">
+                        <h4>Photoplethysmography (PPG)</h4>
+                        <p>An optical technique that detects blood volume changes in microvascular tissue, producing a pulsatile waveform for heart-rate estimation.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Beer Lambert Law">
+                        <h4>Beer-Lambert Law</h4>
+                        <p>The principle that light absorption is related to concentration and path length, used to estimate oxygen saturation from two wavelengths.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Oxyhemoglobin HbO2">
+                        <h4>Oxyhemoglobin (HbO2)</h4>
+                        <p>Hemoglobin bound to oxygen. It absorbs red and infrared light differently than deoxyhemoglobin, enabling SpO2 calculation.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Deoxyhemoglobin Hb">
+                        <h4>Deoxyhemoglobin (Hb)</h4>
+                        <p>Hemoglobin not bound to oxygen. Its higher absorption of red light helps determine oxygen saturation differences.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="AC DC Components">
+                        <h4>AC and DC Components</h4>
+                        <p>AC is the pulsatile component from arterial blood flow; DC is the baseline from tissue and non-pulsatile blood. Their ratio is clinically important.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Ratio of Ratios R Value">
+                        <h4>Ratio of Ratios (R)</h4>
+                        <p>The computed ratio (AC/DC at red) divided by (AC/DC at infrared), converted by calibration curves into SpO2 estimates.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Hypoxemia">
+                        <h4>Hypoxemia</h4>
+                        <p>Low oxygen level in arterial blood. Sustained SpO2 below normal ranges can indicate mild, moderate, or severe hypoxemia.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Tachycardia Bradycardia">
+                        <h4>Tachycardia / Bradycardia</h4>
+                        <p>Tachycardia is elevated heart rate and bradycardia is reduced heart rate, each interpreted relative to patient age and clinical context.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Motion Artifact">
+                        <h4>Motion Artifact</h4>
+                        <p>False signal changes caused by movement, which can degrade waveform quality and produce inaccurate SpO2 or pulse readings.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Signal Quality">
+                        <h4>Signal Quality</h4>
+                        <p>A confidence indicator based on waveform stability and noise level. Better signal quality leads to more reliable measurements.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Calibration Curve">
+                        <h4>Calibration Curve</h4>
+                        <p>A manufacturer-derived mapping from optical ratios to oxygen saturation percentages based on validated experimental references.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Peripheral Circulation">
+                        <h4>Peripheral Circulation</h4>
+                        <p>Blood flow in extremities such as fingers and toes. Poor peripheral perfusion can reduce pulse oximeter performance.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Nail Polish Interference">
+                        <h4>Nail Polish Interference</h4>
+                        <p>Dark or opaque nail polish may alter transmitted light and potentially distort measurements in some sensor configurations.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Clinical Alarm Threshold">
+                        <h4>Clinical Alarm Threshold</h4>
+                        <p>Configured limits for SpO2 and pulse that trigger warnings when readings exceed safe boundaries for monitoring protocols.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Ambient Light Interference">
+                        <h4>Ambient Light Interference</h4>
+                        <p>External light from sunlight or strong lamps that can enter the sensor and introduce optical noise into the measured signal.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Cyanosis">
+                        <h4>Cyanosis</h4>
+                        <p>Bluish discoloration of skin or mucosa caused by reduced oxygenation, often a late clinical sign rather than an early warning.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Dyshemoglobinemia Carboxyhemoglobin Methemoglobin">
+                        <h4>Dyshemoglobinemia</h4>
+                        <p>Abnormal hemoglobin species such as carboxyhemoglobin or methemoglobin that can distort pulse oximetry estimates.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Pleth Variability Index PVI">
+                        <h4>Pleth Variability Index (PVI)</h4>
+                        <p>A derived metric from PPG waveform variation over respiration, sometimes used as a rough indicator of fluid responsiveness.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Pulse Deficit">
+                        <h4>Pulse Deficit</h4>
+                        <p>A mismatch between electrical heart activity and effective peripheral pulse, which may reduce pulse-detected beats at the finger.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Sensor Site Selection">
+                        <h4>Sensor Site Selection</h4>
+                        <p>Choosing an appropriate body site, usually fingertip in this lab, where perfusion is adequate and motion is minimized.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Signal Dropout">
+                        <h4>Signal Dropout</h4>
+                        <p>Temporary loss of a usable pulsatile waveform due to motion, poor attachment, low perfusion, or optical obstruction.</p>
+                    </article>
+
+                    <article class="glossary-item" data-term="Trending vs Spot Reading">
+                        <h4>Trending vs Spot Reading</h4>
+                        <p>Single values can fluctuate; trend interpretation over time is generally more meaningful than isolated spot readings.</p>
+                    </article>
+                </div>
+
+                <p id="glossary-no-results" class="glossary-empty" hidden>No glossary terms match your search.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating glossary trigger for mobile/small viewports -->
+    <button
+        class="floating-glossary-btn"
+        type="button"
+        data-action="toggle-glossary"
+        aria-controls="glossary-modal"
+        aria-label="Open glossary"
+    >
+        <i class="fas fa-book" aria-hidden="true"></i>
+        <span>Glossary</span>
+    </button>
+
+    <!-- HELP MODAL -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-question-circle"></i> Lab Help Guide</h3>
+                <button class="modal-close" id="close-help-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="help-content">
+                    <div class="help-section">
+                        <h4>Pulse Oximetry Basics</h4>
+                        <p>Pulse oximetry is a non-invasive method to monitor oxygen saturation (SpO2) and pulse rate using light absorption principles.</p>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h4>Navigation</h4>
+                        <ul>
+                            <li>Use the left sidebar to navigate between lab steps</li>
+                            <li>Complete each step before proceeding to the next</li>
+                            <li>Click on equipment items to learn more about them</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h4>Troubleshooting</h4>
+                        <ul>
+                            <li>Ensure proper sensor placement on fingertip</li>
+                            <li>Check for adequate perfusion and signal quality</li>
+                            <li>Avoid motion during measurements</li>
+                            <li>Clean sensor between different patient conditions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="pulse-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
