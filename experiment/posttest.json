@@ -1,39 +1,90 @@
+
 {
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "1. The two wavelengths reported in the pulse oximeter measurements:",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "680nm and 980nm",
+        "b": "660nm and 940nm",
+        "c": "640nm and 960nm",
+        "d": "680nm and 980nm"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+ 
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },   
+
+
+    {
+      "question": "2. From the simulator window, identify the function of the sensor probe in the pulse oximeter.",
+      "answers": {
+        "a": "Measure blood oxygenation through transmitted light",
+        "b": "Measure the intensity of light transmitted through the finger tissue",
+        "c": "Differentiate between oxygenated and deoxygenated hemoglobin",
+        "d": "Measures oxygen saturation (SpO2) and pulse rate"
       },
+      
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
+
     {
-      "question": "This is a Sample Question 2?",
+      "question": "3. The first step of measuring SPO2 using pulse oximeter is:",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Clean the fingertip",
+        "b": "Clean the sensor.",
+        "c": "Clip the oximeter to the finger",
+        "d": "Clean the entire pulse oximeter"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+
+    {
+      "question": "4. In mild hypoxia SP02 is:",
+      "answers": {
+        "a": "98-100%",
+        "b": "85-90%",
+        "c": "90-95%",
+        "d": "0-10%"
       },
+      
       "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+
+    {
+      "question": "5. Compensatory tachycardia is a feature of which of the following health conditions:",
+      "answers": {
+        "a": "Normal condition",
+        "b": "Mild hypoxia",
+        "c": "Moderate hypoxia",
+        "d": "Poor circulation"
+      },
+      
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+
+
+    {
+      "question": "6. False positive pulse oximeter measurements were observed in which of the following conditions?",
+      "answers": {
+        "a": "Motion artefacts",
+        "b": "Carbon monoxide poisoning",
+        "c": "Application of nail polish",
+        "d": "All the above"
+      },
+     
+      "correctAnswer": "d",
       "difficulty": "beginner"
     }
   ]
-}
+}	 
+
+
+
+
+
