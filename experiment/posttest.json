@@ -3,39 +3,26 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "1. The EMG technique demonstrated in the simulator is",
+      "question": "1. The two wavelengths reported in the pulse oximeter measurements:",
       "answers": {
-        "a": "Intramuscular Electromyography",
-        "b": "Stimulated Electromyography",
-        "c": "Surface Electromyography",
-        "d": "Needle Electromyography"
+        "a": "680nm and 980nm",
+        "b": "660nm and 940nm",
+        "c": "640nm and 960nm",
+        "d": "680nm and 980nm"
       },
  
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },   
 
 
     {
-      "question": "2. The non-invasive methods for EMG measurement is ",
+      "question": "2. From the simulator window, identify the function of the sensor probe in the pulse oximeter.",
       "answers": {
-        "a": "Needle Electromyography",
-        "b": "Surface Electromyography",
-        "c": "Needle Electromyography",
-        "d": "Stimulated Electromyography"
-      },
-      
-      "correctAnswer": "b",
-      "difficulty": "beginner"
-    },
-
-    {
-      "question": "3. Which of the following amplifies the EMG signal?",
-      "answers": {
-        "a": "Amplifier",
-        "b": "Electrodes",
-        "c": "Filters",
-        "d": "Oximeter"
+        "a": "Measure blood oxygenation through transmitted light",
+        "b": "Measure the intensity of light transmitted through the finger tissue",
+        "c": "Differentiate between oxygenated and deoxygenated hemoglobin",
+        "d": "Measures oxygen saturation (SpO2) and pulse rate"
       },
       
       "correctAnswer": "a",
@@ -43,12 +30,25 @@
     },
 
     {
-      "question": "4. From the simulator, identify the filtering process that removes power line interference.",
+      "question": "3. The first step of measuring SPO2 using pulse oximeter is:",
       "answers": {
-        "a": "High-pass filter",
-        "b": "Low-pass filter",
-        "c": "Notch filter",
-        "d": "Band-pass filter"
+        "a": "Clean the fingertip",
+        "b": "Clean the sensor.",
+        "c": "Clip the oximeter to the finger",
+        "d": "Clean the entire pulse oximeter"
+      },
+      
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+
+    {
+      "question": "4. In mild hypoxia SP02 is:",
+      "answers": {
+        "a": "98-100%",
+        "b": "85-90%",
+        "c": "90-95%",
+        "d": "0-10%"
       },
       
       "correctAnswer": "c",
@@ -56,30 +56,35 @@
     },
 
     {
-      "question": "5. From the simulator, identify the common muscle site for EMG measurement.",
+      "question": "5. Compensatory tachycardia is a feature of which of the following health conditions:",
       "answers": {
-        "a": "Pectoralis Major",
-        "b": "Biceps Brachii",
-        "c": "Quadriceps Femoris",
-        "d": "All the above"
+        "a": "Normal condition",
+        "b": "Mild hypoxia",
+        "c": "Moderate hypoxia",
+        "d": "Poor circulation"
       },
       
-      "correctAnswer": "d",
+      "correctAnswer": "c",
       "difficulty": "beginner"
     },
 
 
     {
-      "question": "6. From the simulator, identify the disease condition where EMG shows small polyphasic MUAPs.",
+      "question": "6. False positive pulse oximeter measurements were observed in which of the following conditions?",
       "answers": {
-        "a": "ALS",
-        "b": "Myopathy",
-        "c": "Neuropathy",
-        "d": "None of the above"
+        "a": "Motion artefacts",
+        "b": "Carbon monoxide poisoning",
+        "c": "Application of nail polish",
+        "d": "All the above"
       },
      
-      "correctAnswer": "b",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     }
   ]
 }	 
+
+
+
+
+
